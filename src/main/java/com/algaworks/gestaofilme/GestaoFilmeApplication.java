@@ -1,4 +1,4 @@
-package com.algaworks.filme;
+package com.algaworks.gestaofilme;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

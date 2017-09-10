@@ -1,5 +1,7 @@
 package com.algaworks.gestaofilme.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +14,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 public class Filme {
 	
@@ -21,17 +22,17 @@ public class Filme {
 	private Long idFilme;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_atores")
+	@JoinColumn(name = "id_ator")
 	@NotNull(message="Ator obrigatório!")
-	private Atores atores;
+	private Ator ator;
 	
-	@NotEmpty(message="Nome obrigatório!")
+	@NotEmpty(message="Nome Filme obrigatório!")
 	private String nomeFilme;
 	
-	@NotNull(message = "Data é obrigatória")
+	@NotNull(message = "Data Lançamento é obrigatória")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE )
-	private String dataLancamento;
+	private Date dataL;
 
 	public Long getIdFilme() {
 		return idFilme;
@@ -41,12 +42,12 @@ public class Filme {
 		this.idFilme = idFilme;
 	}
 
-	public Atores getAtores() {
-		return atores;
+	public Ator getAtor() {
+		return ator;
 	}
 
-	public void setAtores(Atores atores) {
-		this.atores = atores;
+	public void setAtor(Ator ator) {
+		this.ator = ator;
 	}
 
 	public String getNomeFilme() {
@@ -57,12 +58,14 @@ public class Filme {
 		this.nomeFilme = nomeFilme;
 	}
 
-	public String getDataLancamento() {
-		return dataLancamento;
+	public Date getDataL() {
+		return dataL;
 	}
 
-	public void setDataLancamento(String dataLancamento) {
-		this.dataLancamento = dataLancamento;
+	public void setDataL(Date dataL) {
+		this.dataL = dataL;
 	}
-
+	
+	
+	
 }

@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.algaworks.gestaofilme.model.Atores;
-import com.algaworks.gestaofilme.repository.Ator;
-
+import com.algaworks.gestaofilme.model.Ator;
+import com.algaworks.gestaofilme.repository.Atores;
 
 
 @Controller
@@ -25,57 +24,56 @@ import com.algaworks.gestaofilme.repository.Ator;
 public class AtoresController {
 	
 	@Autowired
-	private Ator ator;
+	private Atores atores;
 	
 	@GetMapping("")
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("ListaAtores");
-		mv.addObject("ator",ator.findAll());
+		mv.addObject("atores",atores.findAll());
 	return mv;
 	}
 	
 	@RequestMapping("/novo")
 	public ModelAndView novo(){
 		ModelAndView mv = new ModelAndView("FrmAtores");
-		mv.addObject(new Atores());
+		mv.addObject(new Ator());
 		return mv;
 	}
 	
 	@PostMapping("")
-	public ModelAndView salvar(@Validated Atores atores, Errors erros, RedirectAttributes redirectAttributes){
+	public ModelAndView salvar(@Validated Ator ator, Errors erros, RedirectAttributes redirectAttributes){
 		ModelAndView mv = new ModelAndView("FrmAtores");
-		mv.addObject("ator", ator.findAll());
+		mv.addObject("atores", atores.findAll());
 		if(erros.hasErrors()){
 			return mv;
 		}
 		try{
-			this.ator.save(atores);
+			this.atores.save(ator);
 			return new ModelAndView("redirect:atores");
 		}catch(Exception e){return mv;}
 		
 	}
 	
-	
-	@RequestMapping(value ="/excluir/{idAtores}")
-	public String excluirAtoresByPathVariable(@PathVariable Long idAtores, HttpServletRequest request, 
+	@RequestMapping(value ="/excluir/{idAtor}")
+	public String excluirAtorByPathVariable(@PathVariable Long idAtor, HttpServletRequest request, 
 					HttpServletResponse response) {
-		this.ator.delete(idAtores);
+		this.atores.delete(idAtor);
 		return "redirect:/atores";
 	}
 	
-	@RequestMapping("/alterar/{idAtores}")
-	public ModelAndView alterarAtoresByPathVariable(@PathVariable Long idAtores, HttpServletRequest request, 
+	@RequestMapping("/alterar/{idAtor}")
+	public ModelAndView alterarAtorByPathVariable(@PathVariable Long idAtor, HttpServletRequest request, 
 			HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("FrmAtores");
-		mv.addObject("ator",ator.findAll());
-		Atores atores = ator.findOne(idAtores);
+		mv.addObject("atores",atores.findAll());
+		Ator ator = atores.findOne(idAtor);
 		mv.addObject(ator);
 		return mv;
 	}
 	
-	@RequestMapping(value="{idAtores}", method = RequestMethod.DELETE)
-	public String excluir(@PathVariable Long idAtores, RedirectAttributes attributes) {
-		ator.delete(idAtores);
+	@RequestMapping(value="{idAtor}", method = RequestMethod.DELETE)
+	public String excluir(@PathVariable Long idAtor, RedirectAttributes attributes) {
+		atores.delete(idAtor);
 		attributes.addFlashAttribute("mensagem", "Ator excluído com sucesso!");
 		return "redirect:/atores";
 	}

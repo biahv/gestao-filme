@@ -1,0 +1,1 @@
+insert into atores (id_atores, nome, email, site) values (10, 'Ana', 'ana@a.com', 'www.ana.com');

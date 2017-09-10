@@ -22,7 +22,7 @@ import com.algaworks.gestaofilme.repository.Filmes;
 
 @Controller
 @RequestMapping("/filmes")
-public class FilmeController {
+public class FilmesController {
 	
 	@Autowired
 	private Filmes filmes;
@@ -44,7 +44,7 @@ public class FilmeController {
 	@PostMapping("")
 	public ModelAndView salvar(@Validated Filme filme, Errors erros, RedirectAttributes redirectAttributes){
 		ModelAndView mv = new ModelAndView("FrmFilme");
-		mv.addObject("filmes", filmes.findAll());
+		mv.addObject("festas", filmes.findAll());
 		if(erros.hasErrors()){
 			return mv;
 		}

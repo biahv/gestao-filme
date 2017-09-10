@@ -1,4 +1,4 @@
-package com.algaworks.filme;
+package com.algaworks.gestaofilme;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

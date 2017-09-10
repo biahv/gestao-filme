@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<section layout:fragment="conteudo">
+	<div layout:include="MensagemGeral"></div>
+	<div class="panel panel-default" style="margin: 10px">
+		<div class="panel-heading">
+			<h1 class="panel-title">Lista de Filmes</h1>
+			<a class="btn btn-link aw-link-panel" th:href="@{/filmes/novo}">Novo Filme</a>
+		</div>
+	<div class="panel-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Ator</th>
+					<th>Nome Filme</th>
+					<th>Data Lançamento</th>
+					<th colspan ="2"> Ação </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="filme : ${filmes}">
+					<td th:text="${filme.ator.nome}">xxx</td>
+					<td th:text="${filme.nomeFilme}">xxxxxx</td>
+					<td th:text="${filme.dataL}">xxxx-xx-xx</td>
+					<td><a th:href="@{/filmes/alterar/}+${filme.idFilme}" class="glyphicon glyphicon-pencil"></a></td>
+					<td><a class="btn btn-link btn-xs" data-toggle="modal"
+						data-target="#confirmacaoExclusaoModal"
+						th:attr="data-codigo=${filme.idFilme}, data-descricao=${filme.nomeFilme}, data-model='filme' "
+						title="Excluir" rel="tooltip" data-placement="top"> <span
+						class="glyphicon glyphicon-remove"></span>
+						</a></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div layout:include="DialogoConfirmacaoExclusao"></div>
+	</div>
+</section>
+</html>
