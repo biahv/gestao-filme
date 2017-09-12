@@ -1,5 +1,7 @@
 package com.algaworks.gestaofilme.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.algaworks.gestaofilme.model.Ator;
 import com.algaworks.gestaofilme.model.Filme;
+import com.algaworks.gestaofilme.repository.Atores;
 import com.algaworks.gestaofilme.repository.Filmes;
 
 
@@ -26,6 +30,8 @@ public class FilmesController {
 	
 	@Autowired
 	private Filmes filmes;
+	@Autowired
+	private Atores ator;
 
 	@GetMapping("")
 	public ModelAndView listar() {
@@ -37,7 +43,9 @@ public class FilmesController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(){
 		ModelAndView mv = new ModelAndView("FrmFilme");
+		List<Ator> allAtor = ator.findAllOrderByAtor();
 		mv.addObject(new Filme());
+		mv.addObject("ator", allAtor);
 		return mv;
 	}
 	
@@ -65,10 +73,12 @@ public class FilmesController {
 	@RequestMapping("/alterar/{idFilme}")
 	public ModelAndView alterarFilmeByPathVariable(@PathVariable Long idFilme, HttpServletRequest request, 
 			HttpServletResponse response) {
+		List<Ator> allAtor = ator.findAllOrderByAtor();
 		ModelAndView mv = new ModelAndView("FrmFilme");
 		mv.addObject("filmes",filmes.findAll());
 		Filme filme = filmes.findOne(idFilme);
 		mv.addObject(filme);
+		mv.addObject("ator", allAtor);
 		return mv;
 	}
 	

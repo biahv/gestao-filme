@@ -27,9 +27,12 @@
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('ator')} ? has-error">
 					<label for="ator" class="col-sm-2 control-label">Ator</label>
-					<div class="col-sm-2">
-						<input type="text" class="form-control" id="ator.nome"
-							th:field="*{ator}" />
+					<div class="col-sm-4">
+						<select class="form-control" th:field="*{ator}">
+							<option value="">Selecione um Nome</option>
+							<option th:each="ator : ${ator}" th:value="${ator.idAtor}"
+								th:text="${ator.nome}"></option>
+						</select>
 					</div>
 				</div>
 
